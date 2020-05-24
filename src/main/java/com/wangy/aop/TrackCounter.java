@@ -1,6 +1,9 @@
 package com.wangy.aop;
 
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
@@ -30,5 +33,17 @@ public class TrackCounter {
 
     public int getPlayCount(int trackNumber) {
         return trackCounts.getOrDefault(trackNumber, 0);
+    }
+
+//    @Around(value = "trackPlayed(trackNumber)", argNames = "trackNumber")
+    public void aroundTest(ProceedingJoinPoint jp, int trackNumber) throws Throwable {
+
+        System.out.println("electricity on ...");
+
+        // do some judgement
+
+        jp.proceed();
+
+        System.out.println("play end...");
     }
 }
