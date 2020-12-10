@@ -2,8 +2,10 @@ package com.wangy.aop;
 
 import com.wangy.aop.disk.BlankDisk;
 import com.wangy.aop.disk.CompactDisk;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +18,10 @@ import java.util.List;
  * @date 2020/3/12 / 13:57
  */
 @Configuration
+@Profile("jc")
 public class DiskConfig {
 
-    @Bean
+    @Bean("jcd")
     public CompactDisk saveRock() {
         BlankDisk cd = new BlankDisk();
         cd.setArtist("Fall Out Boy");
@@ -30,15 +33,14 @@ public class DiskConfig {
         tracks.add("Where Did the Party Go");
         tracks.add("Just One Yesterday (feat. Foxes)");
         tracks.add("The Mighty Fall (feat. Big Sean)");
-        tracks.add("Miss Missing You");
+        tracks.add("Missing You");
         tracks.add("Death Valley");
         cd.setTracks(tracks);
         return cd;
     }
 
-    @Bean
+    @Bean("jtc")
     public TrackCounter trackCounter() {
         return new TrackCounter();
     }
-
 }

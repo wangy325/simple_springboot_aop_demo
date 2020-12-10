@@ -1,6 +1,7 @@
 package com.wangy.aop;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -9,7 +10,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author wangy325
  */
 @SpringBootApplication
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
 public class AopApplication {
 
     public static void main(String[] args) {

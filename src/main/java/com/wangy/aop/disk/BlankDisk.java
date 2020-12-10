@@ -2,7 +2,6 @@ package com.wangy.aop.disk;
 
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -29,8 +28,15 @@ public class BlankDisk implements CompactDisk {
     }
 
     @Override
-    public void playTrack(int track) {
-        String trackName = tracks.size() > track ? tracks.get(track) : tracks.get(0);
-        log.info("-Track {} played", trackName);
+    public void playTrack(int track)  {
+        // do something
+        if (track < 0 ){
+            throw new IllegalArgumentException();
+        }
+    }
+
+    @Override
+    public String getTrackName(int trackNumber) {
+        return tracks.size() > trackNumber ? tracks.get(trackNumber) : tracks.get(trackNumber % tracks.size());
     }
 }

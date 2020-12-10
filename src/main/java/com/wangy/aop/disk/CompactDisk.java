@@ -9,5 +9,7 @@ public interface CompactDisk {
 
     void play();
 
-    void playTrack( int Track);
+    void playTrack(int Track);
+
+    String getTrackName(int trackNumber);
 }
