@@ -63,7 +63,7 @@ For further reference, please consider the following sections:
 
 |AspectJ指示器|描述|
 |:-----:|:---:|
-|arg()|限制连接点匹配参数为指定类型的执行方法|
+|args()|限制连接点匹配参数为指定类型的执行方法|
 |@args()|限制连接点匹配参数由指定注解标注的执行方法|
 |execution()|用于匹配是连接点的执行方法|
 |this()|限制连接点匹配AOP代理的bean引用为指定类型的类|
@@ -73,7 +73,10 @@ For further reference, please consider the following sections:
 |@within()|限制连接点匹配指定注解所标注的类型（当使用Spring AOP时，方法定义在由指定的注解所标注的类里）|
 |@annotation|限制匹配带有指定注解的连接点|
 
-所以这里的`arg(trackNumber)`限定符，表明传递给连接点（切入点）`playTrack(int)`的int类型参数也会传递到通知中去。
+所以这里的`args(trackNumber)`限定符，表明传递给连接点（切入点）`playTrack(int)`的int类型参数也会传递到通知中去。
+
+> 关于`args()`条件的作用，sping官方文档有说明：
+>https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop-ataspectj-advice-params
 
 这是基于Java的切面配置，将之前的切面装配到Spring容器中，同时初始化了一个cd bean到容器中。
 
