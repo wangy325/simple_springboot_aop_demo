@@ -26,7 +26,7 @@ public class TrackCounter {
         return trackCounts.getOrDefault(trackNumber, 0);
     }
 
-    @Pointcut("execution( * com.wangy.aop.disk.BlankDisk.playTrack(int)) && args(trackNumber)")
+    @Pointcut("execution( * com.wangy.aop.disk.BlankDisk.playTrack(..)) && args(trackNumber)")
     public void pc1(int trackNumber){
     }
 
@@ -39,15 +39,16 @@ public class TrackCounter {
         log.info("start playing");
     }
 
-    @AfterReturning(value = "pc1(trackNumber)", argNames = "trackNumber")
+    @AfterReturning(value = "pc1(trackNumber)")
     public void countTrack(int trackNumber) {
         log.info("Track {} played", trackNumber);
         trackCounts.put(trackNumber, getPlayCount(trackNumber) + 1);
     }
 
-    @AfterThrowing(value = "pc1(trackNumber)" ,argNames = "trackNumber")
-    public void skipTrack(int trackNumber) {
-        log.info("track {} skipped", trackNumber);
+    @AfterThrowing(value = "pc1(trackNumber)",throwing = "ex", argNames = "trackNumber,ex")
+    public void skipTrack(int trackNumber, Throwable ex) {
+            log.warn(ex.getMessage());
+            log.info("track {} skipped", trackNumber);
     }
 
     @After(value = "pc2()")
@@ -55,8 +56,8 @@ public class TrackCounter {
         // do something
     }
 
-    @Around(value = "pc1(trackNumber)", argNames = "jp,trackNumber")
-    public void aroundTest(ProceedingJoinPoint jp, int trackNumber) throws Throwable {
+    @Around(value = "pc1(trackNumber)")
+    public Object aroundTest(ProceedingJoinPoint jp, int trackNumber) throws Throwable {
         int pl = 2;
         // do some judgement
         if (getPlayCount(trackNumber) > pl) {
@@ -64,8 +65,12 @@ public class TrackCounter {
             // change the behavior of pointcut method
             CompactDisk target = (CompactDisk) jp.getTarget();
             target.playTrack(-1);
+
+            // this thrown can not be handled in afterThrowing advice
+//            throw new PlayLimitException("track " + trackNumber + " has reach the play limit.");
         }else{
-            jp.proceed();
+            return jp.proceed();
         }
+        return null;
     }
 }

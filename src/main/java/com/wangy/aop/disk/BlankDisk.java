@@ -31,7 +31,7 @@ public class BlankDisk implements CompactDisk {
     public void playTrack(int track)  {
         // do something
         if (track < 0 ){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("trackNumber must be a positive int.");
         }
     }
 
