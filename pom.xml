@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.wangy</groupId>
-	<artifactId>aop</artifactId>
+	<artifactId>spring-boot-aop-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>aop</name>
+	<name>spring-boot-aop-demo</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -50,11 +50,6 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
